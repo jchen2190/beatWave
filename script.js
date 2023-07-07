@@ -1,18 +1,18 @@
 let song;
-// let img;
+let img;
 let fft; // Fast Fourier Transform
 let particles = [];
 
 function preload() {
     song = loadSound('Alone_-_Color_Out.mp3');
-    // img = loadImage('bg.jpg');
+    img = loadImage('abstract-bg.jpg');
 }
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
     angleMode(DEGREES);
-    // imageMode(CENTER);
-    // rectMode(CENTER);
+    imageMode(CENTER);
+    rectMode(CENTER);
     fft = new p5.FFT(0.3);
 
     // img.filter(BLUR, 12);
@@ -22,28 +22,28 @@ function setup() {
 
 function draw() {
     background(0);
-    stroke(255);
-    strokeWeight(3);
-    noFill();
 
     translate(width / 2, height / 2);
     
     // beat detection
     fft.analyze();
-    amp = fft.getEnergy(20, 230);
+    amp = fft.getEnergy(20, 240);
 
-    // push();
-    // if (amp > 230) {
-    //     rotate(random(-0.5, 0.5));
-    // }
-    // image(img, 0, 0, width + 100, height + 1--);
-    // pop();
+    push();
+    if (amp > 230) {
+        rotate(random(-0.5, 0.5));
+    }
+    image(img, 0, 0, width + 100, height + 100);
+    pop();
 
-    // let alpha = map(amp, 0, 255, 180, 150);
-    // fill(0, alpha);
-    // noStroke();
-    // rect(0, 0, width, height);
+    let alpha = map(amp, 0, 255, 180, 150);
+    fill(0, alpha);
+    noStroke();
+    rect(0, 0, width, height);
 
+    stroke(255);
+    strokeWeight(3);
+    noFill();
 
     let wave = fft.waveform();
 
