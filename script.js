@@ -2,6 +2,12 @@ let song;
 let img;
 let fft; // Fast Fourier Transform
 let particles = [];
+// let audio1 = new Audio();
+
+// const button1 = document.getElementById("button1");
+// button1.addEventListener("click", function() {
+//     console.log("click");
+// })
 
 function preload() {
     song = loadSound('Alone_-_Color_Out.mp3');
@@ -57,7 +63,7 @@ function draw() {
             
             // 180 for semi-circle
             let index = floor(map(i, 0, 180, 0, wave.length - 1));
-            let r = map(wave[index], -1, 1, 150, 350);
+            let r = map(wave[index], -1, 1, 150, 350); // (value, current lower bound, current upper bound, target low bound, target upper bound)
             let x = r * sin(i) * t;
             let y = r * cos(i);
             vertex(x, y);
