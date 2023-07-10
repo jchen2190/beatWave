@@ -1,4 +1,9 @@
 let song;
+let button;
+let jumpButton;
+// let sliderRate;
+// let sliderPan;
+
 let img;
 let fft; // Fast Fourier Transform
 let particles = [];
@@ -15,6 +20,13 @@ function preload() {
 }
 
 function setup() {
+    // song = loadSound('Alone_-_Color_Out.mp3');
+    // img = loadImage('abstract-bg.jpg');
+    // slider = createSlider(0, 1, 0.5, 0.01); // 0-1
+    // sliderRate = createSlider(0, 2, 1, 0.25); // song speed (low, high, start, spacing)
+    // sliderPan = createSlider(-1, 1, 0, 0.01); // speaker left vs right
+    // song.setVolume(0.5);
+
     createCanvas(windowWidth, windowHeight);
     angleMode(DEGREES);
     imageMode(CENTER);
@@ -22,12 +34,23 @@ function setup() {
     fft = new p5.FFT(0.3);
 
     // img.filter(BLUR, 12);
+    button = createButton("play");
+    button.mousePressed(togglePlaying);
+    jumpButton = createButton("jump");
+    jumpButton.mousePressed(jumpSong);
 
     noLoop()
 }
 
+// function loaded() {
+//     song.play();
+// }
+
 function draw() {
     background(0);
+    // song.volume(slider.value());
+    // song.rate(sliderRate.value());
+    // song.pan(sliderPan.value());
 
     translate(width / 2, height / 2);
     
@@ -85,14 +108,21 @@ function draw() {
     }
 }
 
-function mouseClicked() {
+function togglePlaying() {
     if (song.isPlaying()) {
         song.pause()
+        button.html("play");
         noLoop()
     } else {
         song.play()
+        button.html("pause");
         loop()
     }
+}
+
+function jumpSong() {
+    var songLength = song.duration();
+    song.jump(songLength / 2);
 }
 
 class Particle {

@@ -3,3 +3,9 @@ body {
     margin: 0;
     background-color: #1b1b1b;
 }
+audio {
+    /* position: absolute; */
+    width: 50%;
+    margin: auto auto;
+    display: block;
+}
