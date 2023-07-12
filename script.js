@@ -19,13 +19,13 @@ function setup() {
     // song = loadSound('Alone_-_Color_Out.mp3');
     // img = loadImage('abstract-bg.jpg');
     playButton = createButton("play");
-    playButton.parent("audioControl");
+    playButton.parent("playButton");
     playButton.mousePressed(togglePlaying);
     // jumpButton = createButton(">>");
     // jumpButton.parent("audioControl");
     // jumpButton.mousePressed(jumpSong);
     slider = createSlider(0, 1, 0.5, 0.01); // 0-1
-    slider.parent("audioControl");
+    slider.parent("volumeSlider");
     // sliderRate = createSlider(0, 2, 1, 0.25); // song speed (low, high, start, spacing)
     // sliderPan = createSlider(-1, 1, 0, 0.01); // speaker left vs right
     song.setVolume(0.5);
