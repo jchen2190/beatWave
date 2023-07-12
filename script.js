@@ -3,6 +3,7 @@ let button;
 let jumpButton;
 // let sliderRate;
 // let sliderPan;
+let amplitude;
 
 let img;
 let fft; // Fast Fourier Transform
@@ -22,24 +23,42 @@ function preload() {
 function setup() {
     // song = loadSound('Alone_-_Color_Out.mp3');
     // img = loadImage('abstract-bg.jpg');
-    // slider = createSlider(0, 1, 0.5, 0.01); // 0-1
+    slider = createSlider(0, 1, 0.5, 0.01); // 0-1
     // sliderRate = createSlider(0, 2, 1, 0.25); // song speed (low, high, start, spacing)
     // sliderPan = createSlider(-1, 1, 0, 0.01); // speaker left vs right
-    // song.setVolume(0.5);
+    song.setVolume(0.5);
 
     createCanvas(windowWidth, windowHeight);
     angleMode(DEGREES);
     imageMode(CENTER);
     rectMode(CENTER);
     fft = new p5.FFT(0.3);
+    amplitude = new p5.Amplitude();
 
     // img.filter(BLUR, 12);
     button = createButton("play");
     button.mousePressed(togglePlaying);
-    jumpButton = createButton("jump");
+    jumpButton = createButton(">>");
     jumpButton.mousePressed(jumpSong);
 
     noLoop()
+}
+
+
+function togglePlaying() {
+    if (song.isPlaying()) {
+        song.pause()
+        button.html("play");
+        noLoop()
+    } else {
+        song.play()
+        button.html("pause");
+        loop()
+    }
+}
+
+function jumpSong() {
+    song.jump(song.currentTime() + 5);
 }
 
 // function loaded() {
@@ -48,15 +67,17 @@ function setup() {
 
 function draw() {
     background(0);
-    // song.volume(slider.value());
+    outputVolume(slider.value());
     // song.rate(sliderRate.value());
     // song.pan(sliderPan.value());
+    var volume = amplitude.getLevel();
+
 
     translate(width / 2, height / 2);
     
     // beat detection
     fft.analyze();
-    amp = fft.getEnergy(20, 240);
+    let amp = fft.getEnergy(20, 240);
 
     push();
     if (amp > 230) {
@@ -106,23 +127,6 @@ function draw() {
             particles.splice(i, 1);
         }
     }
-}
-
-function togglePlaying() {
-    if (song.isPlaying()) {
-        song.pause()
-        button.html("play");
-        noLoop()
-    } else {
-        song.play()
-        button.html("pause");
-        loop()
-    }
-}
-
-function jumpSong() {
-    var songLength = song.duration();
-    song.jump(songLength / 2);
 }
 
 class Particle {
