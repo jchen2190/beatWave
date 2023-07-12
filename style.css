@@ -3,9 +3,11 @@ body {
     margin: 0;
     background-color: #1b1b1b;
 }
-audio {
-    /* position: absolute; */
-    width: 50%;
+#audioControl {
+    display: flex;
+    justify-content: center;
     margin: auto auto;
-    display: block;
+}
+#audioControl button {
+    padding: 10px;
 }

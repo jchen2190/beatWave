@@ -10,11 +10,6 @@ let fft; // Fast Fourier Transform
 let particles = [];
 // let audio1 = new Audio();
 
-// const button1 = document.getElementById("button1");
-// button1.addEventListener("click", function() {
-//     console.log("click");
-// })
-
 function preload() {
     song = loadSound('Alone_-_Color_Out.mp3');
     img = loadImage('abstract-bg.jpg');
@@ -23,7 +18,14 @@ function preload() {
 function setup() {
     // song = loadSound('Alone_-_Color_Out.mp3');
     // img = loadImage('abstract-bg.jpg');
+    playButton = createButton("play");
+    playButton.parent("audioControl");
+    playButton.mousePressed(togglePlaying);
+    // jumpButton = createButton(">>");
+    // jumpButton.parent("audioControl");
+    // jumpButton.mousePressed(jumpSong);
     slider = createSlider(0, 1, 0.5, 0.01); // 0-1
+    slider.parent("audioControl");
     // sliderRate = createSlider(0, 2, 1, 0.25); // song speed (low, high, start, spacing)
     // sliderPan = createSlider(-1, 1, 0, 0.01); // speaker left vs right
     song.setVolume(0.5);
@@ -36,10 +38,6 @@ function setup() {
     amplitude = new p5.Amplitude();
 
     // img.filter(BLUR, 12);
-    button = createButton("play");
-    button.mousePressed(togglePlaying);
-    jumpButton = createButton(">>");
-    jumpButton.mousePressed(jumpSong);
 
     noLoop()
 }
@@ -48,11 +46,11 @@ function setup() {
 function togglePlaying() {
     if (song.isPlaying()) {
         song.pause()
-        button.html("play");
+        playButton.html("play");
         noLoop()
     } else {
         song.play()
-        button.html("pause");
+        playButton.html("Pause");
         loop()
     }
 }
