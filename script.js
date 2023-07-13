@@ -26,17 +26,16 @@ function setup() {
     // jumpButton.parent("audioControl");
     // jumpButton.mousePressed(jumpSong);
 
-    sliderSong = createSlider(0, song.duration(), 0, 1)
+    sliderSong = createSlider(0, song.duration(), 0, 0.1)
     sliderSong.parent("songSlider");
     sliderSong.input(jumpSong);
 
     sliderVolume = createSlider(0, 1, 0.5, 0.01); // 0-1
     sliderVolume.parent("volumeSlider");
+    song.setVolume(0.5);
 
     // sliderRate = createSlider(0, 2, 1, 0.25); // song speed (low, high, start, spacing)
     // sliderPan = createSlider(-1, 1, 0, 0.01); // speaker left vs right
-
-    song.setVolume(0.5);
 
     createCanvas(windowWidth, windowHeight);
     angleMode(DEGREES);
@@ -77,6 +76,8 @@ function jumpSong() {
 function draw() {
     background(0);
     outputVolume(sliderVolume.value());
+    const currentTime = song.currentTime();
+    sliderSong.value(currentTime);
 
     // song.rate(sliderRate.value());
     // song.pan(sliderPan.value());
