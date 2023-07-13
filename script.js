@@ -18,7 +18,6 @@ function preload() {
 function setup() {
     playButton = createButton("Play");
     playButton.parent("playButton");
-    // playButton.addClass("play");
     playButton.mousePressed(togglePlaying);
     
     // playButton.child(playButtonIcon);
@@ -28,11 +27,11 @@ function setup() {
 
     sliderSong = createSlider(0, song.duration(), 0, 0.1)
     sliderSong.parent("songSlider");
+    sliderSong.style('width', '200%');
     sliderSong.input(jumpSong);
 
-    sliderVolume = createSlider(0, 1, 0.5, 0.01); // 0-1
+    sliderVolume = createSlider(0, 1, 1, 0.01); // 0-1
     sliderVolume.parent("volumeSlider");
-    song.setVolume(0.5);
 
     // sliderRate = createSlider(0, 2, 1, 0.25); // song speed (low, high, start, spacing)
     // sliderPan = createSlider(-1, 1, 0, 0.01); // speaker left vs right
@@ -52,15 +51,11 @@ function togglePlaying() {
     if (song.isPlaying()) {
         song.pause()
         playButton.html("Play");
-        // playButton.removeClass("pause");
-        // playButton.addClass("play");
-        noLoop()
+        noLoop();
     } else {
         song.play()
         playButton.html("Pause");
-        // playButton.removeClass("play");
-        // playButton.addClass("pause");
-        loop()
+        loop();
     }
 }
 
@@ -81,7 +76,7 @@ function draw() {
 
     // song.rate(sliderRate.value());
     // song.pan(sliderPan.value());
-    var volume = amplitude.getLevel();
+    // var volume = amplitude.getLevel();
 
 
     translate(width / 2, height / 2);
