@@ -11,6 +11,13 @@ body {
 #audioControl button {
     padding: 10px;
 }
+.play {
+    background-image: url(/images/play.png);
+}
+.pause {
+    background-image: url(/images/pause.svg);
+}
 .container {
     display: flex;
+    align-items: center;
 }

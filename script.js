@@ -1,33 +1,41 @@
-let song;
-let button;
-let jumpButton;
+var song, playButton, jumpButton, sliderSong, sliderVolume;
 // let sliderRate;
 // let sliderPan;
 let amplitude;
-
-let img;
+let backgroundImage;
 let fft; // Fast Fourier Transform
 let particles = [];
 // let audio1 = new Audio();
 
+// let playButtonIcon
+
 function preload() {
     song = loadSound('Alone_-_Color_Out.mp3');
-    img = loadImage('abstract-bg.jpg');
+    backgroundImage = loadImage('abstract-bg.jpg');
+    // playButtonIcon = loadImage('./images/play.svg');
 }
 
 function setup() {
-    // song = loadSound('Alone_-_Color_Out.mp3');
-    // img = loadImage('abstract-bg.jpg');
-    playButton = createButton("play");
+    playButton = createButton("Play");
     playButton.parent("playButton");
+    // playButton.addClass("play");
     playButton.mousePressed(togglePlaying);
+    
+    // playButton.child(playButtonIcon);
     // jumpButton = createButton(">>");
     // jumpButton.parent("audioControl");
     // jumpButton.mousePressed(jumpSong);
-    slider = createSlider(0, 1, 0.5, 0.01); // 0-1
-    slider.parent("volumeSlider");
+
+    sliderSong = createSlider(0, song.duration(), 0, 1)
+    sliderSong.parent("songSlider");
+    sliderSong.input(jumpSong);
+
+    sliderVolume = createSlider(0, 1, 0.5, 0.01); // 0-1
+    sliderVolume.parent("volumeSlider");
+
     // sliderRate = createSlider(0, 2, 1, 0.25); // song speed (low, high, start, spacing)
     // sliderPan = createSlider(-1, 1, 0, 0.01); // speaker left vs right
+
     song.setVolume(0.5);
 
     createCanvas(windowWidth, windowHeight);
@@ -37,8 +45,6 @@ function setup() {
     fft = new p5.FFT(0.3);
     amplitude = new p5.Amplitude();
 
-    // img.filter(BLUR, 12);
-
     noLoop()
 }
 
@@ -46,26 +52,32 @@ function setup() {
 function togglePlaying() {
     if (song.isPlaying()) {
         song.pause()
-        playButton.html("play");
+        playButton.html("Play");
+        // playButton.removeClass("pause");
+        // playButton.addClass("play");
         noLoop()
     } else {
         song.play()
         playButton.html("Pause");
+        // playButton.removeClass("play");
+        // playButton.addClass("pause");
         loop()
     }
 }
 
 function jumpSong() {
-    song.jump(song.currentTime() + 5);
+    const jumpTime = sliderSong.value();
+    song.jump(jumpTime);
 }
 
-// function loaded() {
-//     song.play();
+// function fastForwardSong() {
+//     song.jump(song.currentTime() + 5);
 // }
 
 function draw() {
     background(0);
-    outputVolume(slider.value());
+    outputVolume(sliderVolume.value());
+
     // song.rate(sliderRate.value());
     // song.pan(sliderPan.value());
     var volume = amplitude.getLevel();
@@ -81,7 +93,7 @@ function draw() {
     if (amp > 230) {
         rotate(random(-0.5, 0.5));
     }
-    image(img, 0, 0, width + 100, height + 100);
+    image(backgroundImage, 0, 0, width + 100, height + 100);
     pop();
 
     let alpha = map(amp, 0, 255, 180, 150);
@@ -118,7 +130,6 @@ function draw() {
 
     for (let i = particles.length - 1; i >= 0; i--) { // backwards so particles don't flicker
         if (!particles[i].edges()) {
-            // particles[i].update();
             particles[i].update(amp > 200);
             particles[i].show();
         } else {
