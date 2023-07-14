@@ -10,7 +10,13 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <input id="audioFile" controls type="file"/>
+    <div id="instruction">
+        <h4>Choose your song file here and click "Play":</h4>
+    </div>
+    <div>
+        <input id="audioFile" controls type="file"/>
+        <!-- <label for="audioFile" id="audioFileLabel">Default song is Alone_-_Color_Out.mp3</label> -->
+    </div>
     <div id="audioControl">
         <div id="songSlider" class="slider-container"></div>
         <div class="container">

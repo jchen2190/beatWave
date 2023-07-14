@@ -6,6 +6,19 @@ body {
     margin: 0;
     background-color: #1b1b1b;
 }
+#instruction {
+    color: white;
+}
+#instruction h4 {
+    margin: 5px;
+}
+#audioFile {
+    color: white;
+    margin: 10px;
+}
+#audioFileLabel {
+    color: white;
+}
 #audioControl {
     margin: auto auto;
 }
@@ -20,4 +33,7 @@ body {
 .container {
     display: flex;
     align-items: center;
+}
+.hidden {
+    display: none;
 }

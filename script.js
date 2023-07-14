@@ -16,6 +16,7 @@ function preload() {
     document.getElementById("audioFile").onchange = function(event) {
         if (event.target.files[0]) {
             if (typeof song != "undefined") {
+                song.pause();
                 song.disconnect();
                 song.stop();
                 clear();
