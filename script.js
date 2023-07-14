@@ -6,13 +6,24 @@ let backgroundImage;
 let fft; // Fast Fourier Transform
 let particles = [];
 // let audio1 = new Audio();
-
 // let playButtonIcon
 
 function preload() {
     song = loadSound('Alone_-_Color_Out.mp3');
     backgroundImage = loadImage('abstract-bg.jpg');
     // playButtonIcon = loadImage('./images/play.svg');
+
+    document.getElementById("audioFile").onchange = function(event) {
+        if (event.target.files[0]) {
+            if (typeof song != "undefined") {
+                song.disconnect();
+                song.stop();
+                clear();
+                playButton.html("Play");
+            }
+            song = loadSound(URL.createObjectURL(event.target.files[0]));
+        }
+    }
 }
 
 function setup() {
