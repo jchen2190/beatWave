@@ -76,10 +76,6 @@ function jumpSong() {
     song.jump(jumpTime);
 }
 
-// function fastForwardSong() {
-//     song.jump(song.currentTime() + 5);
-// }
-
 function draw() {
     background(0);
     outputVolume(sliderVolume.value());
@@ -89,8 +85,6 @@ function draw() {
     // song.rate(sliderRate.value());
     // song.pan(sliderPan.value());
     // var volume = amplitude.getLevel();
-
-
     translate(width / 2, height / 2);
     
     // beat detection
@@ -108,7 +102,6 @@ function draw() {
     fill(0, alpha);
     noStroke();
     rect(0, 0, width, height);
-
     stroke(255);
     strokeWeight(3);
     noFill();
@@ -117,12 +110,7 @@ function draw() {
 
     for (let t = -1; t <= 1; t += 2) { // complete circle
         beginShape()
-        for (let i = 0; i <= 180; i += 0.5) {
-            // let index = floor(map(i, 0, width, 0, wave.length))
-            // let x = i;
-            // let y = wave[index] * 300 + height / 2
-            // point(x, y);
-            
+        for (let i = 0; i <= 180; i += 0.5) {        
             // 180 for semi-circle
             let index = floor(map(i, 0, 180, 0, wave.length - 1));
             let r = map(wave[index], -1, 1, 150, 350); // (value, current lower bound, current upper bound, target low bound, target upper bound)
